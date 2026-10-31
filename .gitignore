@@ -1,0 +1,30 @@
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.env
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Raw/processed datasets: never commit dataset files
+/data/raw/*
+!/data/raw/README.md
+!/data/raw/.gitkeep
+/data/processed/*
+!/data/processed/README.md
+!/data/processed/.gitkeep
+
+# Local model binaries may be large; decide later which deployment artifact is safe to publish
+/models/*
+!/models/README.md
+!/models/.gitkeep
+
+# Temporary and local logs
+*.log
+.streamlit/secrets.toml

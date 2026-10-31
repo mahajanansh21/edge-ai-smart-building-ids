@@ -1,0 +1,10 @@
+# Python 3.11 recommended for this project.
+numpy>=1.26,<3.0
+pandas>=2.2,<4.0
+scikit-learn>=1.5,<2.0
+streamlit>=1.40,<2.0
+plotly>=5.24,<7.0
+matplotlib>=3.8,<4.0
+joblib>=1.4,<2.0
+psutil>=5.9,<8.0
+pytest>=8.0,<10.0
