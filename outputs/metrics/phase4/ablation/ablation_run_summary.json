@@ -1,0 +1,28 @@
+{
+  "phase": 4,
+  "experiment": "feature_ablation_reliability_check",
+  "purpose": "measure validation performance sensitivity to selected feature groups",
+  "test_split_used": false,
+  "preprocessing": "existing Phase 3 preprocessor fitted on training partition only",
+  "models": {
+    "Attack_label": "random_forest",
+    "Attack_type": "decision_tree"
+  },
+  "ablations_requested": [
+    "full_expanded43",
+    "no_tcp_sequence_ack_checksum",
+    "no_tcp_family",
+    "no_http_family",
+    "no_mqtt_dns_families"
+  ],
+  "targets_requested": [
+    "Attack_label",
+    "Attack_type"
+  ],
+  "successful_runs": 10,
+  "failed_runs": 0,
+  "elapsed_seconds": 24.917,
+  "comparison_csv": "outputs\\metrics\\phase4\\ablation\\ablation_comparison.csv",
+  "failures": [],
+  "warning": "Ablation results are validation-only and remain subject to the known limitation that earlier exploratory audits used the full dataset. They do not establish generalization to unseen devices, sessions, or environments."
+}

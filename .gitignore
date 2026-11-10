@@ -28,3 +28,27 @@ Thumbs.db
 # Temporary and local logs
 *.log
 .streamlit/secrets.toml
+
+# Project publication rules (Phase 8)
+
+# Keep local backups and extracted experiment packages out of Git
+/app.py.backup
+/app.py.before_reset_index_fix
+/app_phase2_backup.py
+/app_phase6_backup.py
+/README.txt
+/phase4_ablation_pack/
+/phase6_dashboard_pack_staging/
+
+# Keep local demonstration-only files and run outputs out of Git
+/outputs/eda-review.zip
+/outputs/metrics/phase6_demo/
+/outputs/phase7/runs/
+
+# Publish only the frozen final model bundle; exclude other model experiments
+!/models/final/
+/models/final/*
+!/models/final/*.joblib
+!/models/final/*.json
+
+/outputs/metrics/split_manifest.csv

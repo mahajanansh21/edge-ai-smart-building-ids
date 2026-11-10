@@ -1,0 +1,73 @@
+{
+  "phase": 5,
+  "stage": "5A_candidate_retraining",
+  "purpose": "retrain provisional selected reduced-feature candidates on full training partition; validate; do not read test data",
+  "test_split_used": false,
+  "preprocessor_fitted_on": "train partition only in Phase 3",
+  "candidate_results": {
+    "Attack_label": {
+      "status": "success",
+      "candidate_name": "binary_random_forest_without_tcp_len",
+      "model_name": "random_forest",
+      "model_path": "models\\phase5\\candidates\\binary_random_forest_without_tcp_len.joblib",
+      "input_spec_path": "models\\phase5\\candidates\\binary_random_forest_without_tcp_len_input_spec.json",
+      "validation_classification_report": "outputs\\metrics\\phase5\\candidate_validation\\Attack_label\\validation_classification_report.csv",
+      "validation_confusion_matrix": "outputs\\metrics\\phase5\\candidate_validation\\Attack_label\\validation_confusion_matrix.csv",
+      "train_rows": 109890,
+      "validation_rows": 23548,
+      "retained_features": 42,
+      "removed_features": [
+        "numeric__tcp.len"
+      ],
+      "metrics": {
+        "accuracy": 0.9357057924239851,
+        "balanced_accuracy": 0.9303667644040675,
+        "macro_precision": 0.858501784983609,
+        "macro_recall": 0.9303667644040675,
+        "macro_f1": 0.8886488773084988,
+        "weighted_f1": 0.9386261000644156,
+        "normal_recall": 0.922633744855967,
+        "attack_recall": 0.938099783952168
+      },
+      "fit_seconds": 3.5576,
+      "validation_predict_seconds": 0.0396,
+      "validation_records_per_second": 595157.46
+    },
+    "Attack_type": {
+      "status": "success",
+      "candidate_name": "multiclass_decision_tree_without_tcp_checksum",
+      "model_name": "decision_tree",
+      "model_path": "models\\phase5\\candidates\\multiclass_decision_tree_without_tcp_checksum.joblib",
+      "input_spec_path": "models\\phase5\\candidates\\multiclass_decision_tree_without_tcp_checksum_input_spec.json",
+      "validation_classification_report": "outputs\\metrics\\phase5\\candidate_validation\\Attack_type\\validation_classification_report.csv",
+      "validation_confusion_matrix": "outputs\\metrics\\phase5\\candidate_validation\\Attack_type\\validation_confusion_matrix.csv",
+      "train_rows": 109890,
+      "validation_rows": 23548,
+      "retained_features": 42,
+      "removed_features": [
+        "numeric__tcp.checksum"
+      ],
+      "metrics": {
+        "accuracy": 0.8350603023611347,
+        "balanced_accuracy": 0.8270728168081478,
+        "macro_precision": 0.8631873273858697,
+        "macro_recall": 0.8270728168081478,
+        "macro_f1": 0.8249236211532854,
+        "weighted_f1": 0.8480097532339443
+      },
+      "fit_seconds": 1.3685,
+      "validation_predict_seconds": 0.0052,
+      "validation_records_per_second": 4532122.11
+    }
+  },
+  "successful_candidates": 2,
+  "failed_candidates": 0,
+  "failures": [],
+  "next_action": "Review candidate validation metrics and files. Only then run src.phase5_freeze_candidates. Do not evaluate test yet.",
+  "limitations": [
+    "Feature and model selection used the validation partition repeatedly; validation scores are not independent confirmation.",
+    "Earlier exploratory audits used the full dataset before splitting.",
+    "The split is record-level, not verified device/session-level.",
+    "The eventual test result will estimate performance on this dataset split, not prove generalization to unseen devices or environments."
+  ]
+}

@@ -1,0 +1,17 @@
+dropped_feature
+categorical__mqtt.protoname_MQTT
+categorical__mqtt.protoname___NO_VALUE__
+categorical__mqtt.topic_Temperature_and_Humidity
+categorical__mqtt.topic___NO_VALUE__
+numeric__dns.qry.name
+numeric__dns.qry.name.len
+numeric__dns.qry.qu
+numeric__dns.retransmission
+numeric__dns.retransmit_request
+numeric__mqtt.conflag.cleansess
+numeric__mqtt.conflags
+numeric__mqtt.hdrflags
+numeric__mqtt.len
+numeric__mqtt.msgtype
+numeric__mqtt.topic_len
+numeric__mqtt.ver

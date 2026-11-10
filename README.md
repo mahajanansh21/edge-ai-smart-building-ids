@@ -1,66 +1,193 @@
 # Edge AI-Based Intrusion Detection for Smart Buildings
 
-An undergraduate defensive AI/ML prototype that classifies labelled IoT/IIoT network-flow records and performs local CPU inference. The first implementation will use a public offline dataset; it does **not** monitor or attack a real network.
+An educational Edge AI intrusion detection prototype for analysing IoT/IIoT network traffic using machine-learning models and local CPU inference.
 
-## Current status
+## Project overview
 
-**Phase 2 starter workspace.** The Streamlit app is currently a setup/status screen. It does not yet train a model or claim to detect attacks. Dataset-specific preprocessing will be implemented only after inspecting the downloaded CSV schema.
+This project uses the Edge-IIoTset dataset to identify potentially malicious network traffic. It combines binary intrusion detection, multiclass attack identification, offline traffic replay, threat-alert reporting and a Streamlit dashboard.
 
-## Planned stack
+**Project scope:** Local, CPU-based defensive research prototype. It does not capture live network packets, perform active scanning, or control production network devices.
 
-- Python 3.11
-- pandas / NumPy for data handling
-- scikit-learn for classical machine learning
-- Streamlit for the dashboard
-- Plotly / Matplotlib for visualizations
-- Joblib for model persistence
-- pytest for tests
+## Main capabilities
 
-## Quick start (Windows PowerShell)
+- Explore the original dataset and its attack categories.
+- Detect Normal versus Attack traffic using a Random Forest.
+- Identify one of 15 traffic categories using a Decision Tree.
+- Analyse a manually entered feature vector or uploaded CSV.
+- Replay validation traffic through the frozen models.
+- Display model-predicted threat alerts.
+- Measure local CPU inference time, throughput and system memory.
+- Export prediction and alert reports.
+
+## Dashboard
+
+Run the application locally:
 
 ```powershell
-# From the repository root
-py -3.11 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python -m streamlit run app.py
+.\.venv\Scripts\python.exe -m streamlit run .\app.py
 ```
 
-If PowerShell blocks activation, see the activation-policy note in the setup instructions provided with this project. You can also bypass activation by invoking `.venv\Scripts\python.exe` directly.
+Open `http://localhost:8501`.
+
+The dashboard contains Overview, Dataset Explorer, Model Evaluation, Traffic Analyzer, Live Simulation, Threat Alerts, Edge Performance and About pages.
 
 ## Dataset
 
-Primary candidate: **Edge-IIoTset**.
+Dataset file expected locally:
 
-- IEEE DataPort: https://doi.org/10.21227/mbc1-1h68
-- Kaggle distribution: https://www.kaggle.com/datasets/mohamedamineferrag/edgeiiotset-cyber-security-dataset-of-iot-iiot
-- Research paper: Ferrag et al., “Edge-IIoTset: A New Comprehensive Realistic Cyber Security Dataset of IoT and IIoT Applications for Centralized and Federated Learning,” *IEEE Access*, vol. 10, pp. 40281–40306, 2022. DOI: https://doi.org/10.1109/ACCESS.2022.3165809
+`data/raw/ML-EdgeIIoT-dataset.csv`
 
-Read and comply with the dataset host's current terms/licence before use or redistribution. Download the dataset yourself and place the extracted CSV under `data/raw/`. Do not commit raw dataset files to Git.
+The inspected dataset contains:
 
-The expected filename `DNN-EdgeIIoT-dataset.csv` is only a suggested filename used by some public distributions. Confirm the exact downloaded filename and schema before renaming or preprocessing anything.
+| Property | Value |
+|---|---:|
+| Records | 157,800 |
+| Original columns | 63 |
+| Provisional source features | 36 |
+| Transformed expanded features | 43 |
+| Binary classes | 2 |
+| Attack categories | 15 |
 
-## Repository layout
+Binary distribution:
 
-```text
-app.py                 Streamlit starter/status app
-config.py              Shared paths and random seed
-requirements.txt       Python dependencies
-src/                   Data and ML modules (added in later phases)
-data/raw/              Local downloaded source data (not committed)
-data/processed/        Generated processed data (not committed)
-models/                Local model artifacts (not committed by default)
-outputs/                Experiment figures, metrics and benchmarks
-tests/                  Automated tests
-docs/                   Architecture and methodology notes
+| Class | Records |
+|---|---:|
+| Normal | 24,301 |
+| Attack | 133,499 |
+
+The raw dataset and processed split files are intentionally not committed. Obtain the dataset from its original distributor and follow its applicable licence and citation requirements. See `data/raw/README.md` and `data/processed/README.md`.
+
+## Final frozen models
+
+Both models use the saved Phase 3 `expanded36_normalized` preprocessor.
+
+| Task | Model | Input features | Excluded feature |
+|---|---|---:|---|
+| Binary detection | Random Forest | 42 | `numeric__tcp.len` |
+| Attack identification | Decision Tree | 42 | `numeric__tcp.checksum` |
+
+The six required frozen artifacts are stored in `models/final/`.
+
+## Final held-out test results
+
+These are the recorded Phase 5 results. The test set was evaluated once after model freezing.
+
+| Metric | Binary Random Forest | Multiclass Decision Tree |
+|---|---:|---:|
+| Accuracy | 93.64% | 83.51% |
+| Macro precision | 85.99% | 86.55% |
+| Macro recall | 93.04% | 83.03% |
+| Macro-F1 | 88.96% | 82.69% |
+| Weighted F1 | 93.92% | 84.77% |
+| Balanced accuracy | 93.04% | 83.03% |
+
+See `outputs/metrics/phase5/final_test/` for classification reports and confusion matrices.
+
+## Technology stack
+
+- Python
+- Pandas and NumPy
+- Scikit-learn
+- Streamlit
+- Plotly
+- Joblib
+- psutil
+- pytest
+
+## Local installation
+
+Use Python 3.13.3 or another compatible Python environment.
+
+```powershell
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+cd edge-ai-smart-building-ids
+
+py -3.13 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-## Reproducibility and responsible use
+Place the raw dataset at `data/raw/ML-EdgeIIoT-dataset.csv`.
 
-- Random seed: `42` (where applicable).
-- Split data before fitting preprocessing transformations.
-- Keep the test set untouched until final evaluation.
-- Never report unexecuted or illustrative metrics as experiment results.
-- Clearly distinguish offline dataset replay from real-time network monitoring.
-- This is an educational prototype, not production building-security software.
+For the complete dataset explorer and offline replay, prepare the local data artifacts:
+
+```powershell
+python -m src.prepare_splits
+python -m src.prepare_model_inputs
+```
+
+These preparation commands do not train classifiers. The frozen models in `models/final/` are used for inference.
+
+Run tests:
+
+```powershell
+python -m pytest -q
+```
+
+Run the inference smoke test after the required local training split is prepared:
+
+```powershell
+python -m src.phase67_smoke_test
+```
+
+Launch the dashboard:
+
+```powershell
+python -m streamlit run app.py
+```
+
+## Repository structure
+
+```text
+app.py
+config.py
+requirements.txt
+src/
+tests/
+models/final/
+docs/
+outputs/figures/
+outputs/metrics/
+data/raw/          # local dataset, excluded from Git
+data/processed/    # local prepared data, excluded from Git
+```
+
+## Dataset processing and methodology
+
+The inspected source dataset had 157,800 records and 63 columns. Complete-row duplicate removal removed 814 records, all belonging to MITM. The resulting 156,986 records were split into:
+
+- Training: 109,890
+- Validation: 23,548
+- Test: 23,548
+
+The preprocessing transformer was fitted on training data only. Two feature configurations and four classifiers were compared during Phase 4. Feature-ablation experiments informed the final candidate configurations.
+
+See `docs/methodology.md` and `docs/RESULTS.md`.
+
+## Limitations
+
+- The split is record-level; verified device/session-level separation was unavailable.
+- Earlier exploratory audits used the full dataset before splitting. Validation is therefore not an independent confirmatory assessment.
+- TCP sequence information strongly affects model performance.
+- DDoS_HTTP has low precision, while Fingerprinting and Uploading have comparatively weak F1/recall.
+- MITM has limited support after duplicate removal.
+- Model scores displayed by the application are not calibrated probabilities.
+- Offline replay is not live packet capture.
+- Results on this dataset do not establish generalisation to unseen devices, sessions or buildings.
+
+See `docs/LIMITATIONS.md`.
+
+## Safety and intended use
+
+This is an educational defensive prototype. Model predictions are alerts requiring human review, not confirmed security incidents. Do not connect it to production network controls or treat it as a production security appliance.
+
+## Project documentation
+
+- `docs/architecture.md`
+- `docs/methodology.md`
+- `docs/RESULTS.md`
+- `docs/LIMITATIONS.md`
+- `docs/UNIVERSITY_DEMO_SCRIPT.md`
+- `docs/PHASE6_7_GUIDE.md`

@@ -12,7 +12,7 @@ METRICS_DIR = OUTPUTS_DIR / "metrics"
 BENCHMARKS_DIR = OUTPUTS_DIR / "benchmarks"
 
 RANDOM_STATE = 42
-DEFAULT_DATASET_NAME = "DNN-EdgeIIoT-dataset.csv"
+DEFAULT_DATASET_NAME = "ML-EdgeIIoT-dataset.csv"
 DEFAULT_DATASET_PATH = DATA_RAW_DIR / DEFAULT_DATASET_NAME
 
 # Create project output folders when the application/modules are imported.

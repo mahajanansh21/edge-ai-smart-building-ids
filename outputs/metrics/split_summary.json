@@ -1,0 +1,35 @@
+{
+    "dataset": "ML-EdgeIIoT-dataset.csv",
+    "original_records": 157800,
+    "duplicates_removed": 814,
+    "remaining_records": 156986,
+    "random_state": 42,
+    "stratification_column": "Attack_type",
+    "train_records": 109890,
+    "validation_records": 23548,
+    "test_records": 23548,
+    "classes": [
+        "Backdoor",
+        "DDoS_HTTP",
+        "DDoS_ICMP",
+        "DDoS_TCP",
+        "DDoS_UDP",
+        "Fingerprinting",
+        "MITM",
+        "Normal",
+        "Password",
+        "Port_Scanning",
+        "Ransomware",
+        "SQL_injection",
+        "Uploading",
+        "Vulnerability_scanner",
+        "XSS"
+    ],
+    "split_method": "Two-stage stratified random split",
+    "split_proportions": {
+        "train": 0.7,
+        "validation": 0.15,
+        "test": 0.15
+    },
+    "limitation": "Record-level split; independent device-level or capture-level generalization has not been established."
+}

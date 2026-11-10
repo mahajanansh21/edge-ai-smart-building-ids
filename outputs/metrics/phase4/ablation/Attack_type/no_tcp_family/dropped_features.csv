@@ -1,0 +1,12 @@
+dropped_feature
+numeric__tcp.ack
+numeric__tcp.ack_raw
+numeric__tcp.checksum
+numeric__tcp.connection.fin
+numeric__tcp.connection.rst
+numeric__tcp.connection.syn
+numeric__tcp.connection.synack
+numeric__tcp.flags
+numeric__tcp.flags.ack
+numeric__tcp.len
+numeric__tcp.seq

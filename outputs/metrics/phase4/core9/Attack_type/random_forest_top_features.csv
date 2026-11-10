@@ -1,0 +1,10 @@
+rank,feature,importance,method
+1,numeric__tcp.len,0.680799996754643,tree_feature_importance
+2,numeric__tcp.flags,0.14922441348571583,tree_feature_importance
+3,numeric__tcp.flags.ack,0.05903054977899734,tree_feature_importance
+4,numeric__tcp.connection.rst,0.04890744078781117,tree_feature_importance
+5,numeric__tcp.connection.syn,0.03552355687464911,tree_feature_importance
+6,numeric__tcp.connection.fin,0.0090074695162943,tree_feature_importance
+7,numeric__arp.opcode,0.007762783773584368,tree_feature_importance
+8,numeric__arp.hw.size,0.007371548560097263,tree_feature_importance
+9,numeric__tcp.connection.synack,0.0023722404682076886,tree_feature_importance

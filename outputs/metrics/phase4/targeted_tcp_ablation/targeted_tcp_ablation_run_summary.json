@@ -1,0 +1,35 @@
+{
+  "phase": 4,
+  "experiment": "targeted_single_feature_tcp_ablation",
+  "purpose": "measure validation sensitivity to six individual high-importance TCP features and their combined removal",
+  "test_split_used": false,
+  "matrices_loaded": [
+    "X_train.npz",
+    "X_validation.npz"
+  ],
+  "labels_loaded": [
+    "y_train.csv",
+    "y_validation.csv"
+  ],
+  "models_reused_for_hyperparameters": {
+    "Attack_label": "random_forest",
+    "Attack_type": "decision_tree"
+  },
+  "ablations_requested": [
+    "full_expanded43",
+    "without_tcp_seq",
+    "without_tcp_ack",
+    "without_tcp_ack_raw",
+    "without_tcp_checksum",
+    "without_tcp_flags",
+    "without_tcp_len",
+    "without_top6_tcp_features"
+  ],
+  "successful_runs": 16,
+  "failed_runs": 0,
+  "elapsed_seconds": 51.016,
+  "comparison_csv": "outputs/metrics/phase4/targeted_tcp_ablation/targeted_tcp_ablation_comparison.csv",
+  "detail_reports_directory": "outputs/metrics/phase4/targeted_tcp_ablation/details",
+  "failures": [],
+  "warning": "Validation-only diagnostic. Feature dependence does not prove leakage or generalization. Prior exploratory audits used the full dataset; keep the test split sealed until final evaluation."
+}

@@ -1,0 +1,29 @@
+{
+  "phase": 4,
+  "purpose": "train candidate classifiers; compare on validation only",
+  "test_split_used": false,
+  "feature_sets_requested": [
+    "core9",
+    "expanded36_normalized"
+  ],
+  "targets_requested": [
+    "Attack_label",
+    "Attack_type"
+  ],
+  "models_requested": [
+    "logistic_regression",
+    "decision_tree",
+    "random_forest",
+    "extra_trees"
+  ],
+  "quick_mode": false,
+  "quick_training_sample_limit": null,
+  "random_seed": 42,
+  "successful_runs": 16,
+  "failed_runs": 0,
+  "elapsed_seconds": 153.178,
+  "comparison_csv": "outputs\\metrics\\phase4\\validation_model_comparison.csv",
+  "failures": [],
+  "selection_metric": "macro_f1, with balanced_accuracy as a secondary metric",
+  "warning": "Validation scores are for candidate comparison, not proof of generalization. The dataset has known formatting/collection-pattern risks; expanded36_normalized is experimental. Earlier exploratory audits used the full dataset, so the validation split is not a fully untouched confirmatory set. Keep the test split sealed until the final evaluation stage."
+}

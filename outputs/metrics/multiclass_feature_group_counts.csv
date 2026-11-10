@@ -1,0 +1,16 @@
+Attack_type,unique_feature_groups
+DDoS_ICMP,1
+DDoS_UDP,1
+DDoS_TCP,2
+Fingerprinting,5
+Port_Scanning,5
+Password,17
+Uploading,26
+Ransomware,32
+XSS,41
+MITM,46
+Backdoor,119
+DDoS_HTTP,126
+SQL_injection,162
+Vulnerability_scanner,311
+Normal,358

@@ -1,0 +1,55 @@
+{
+  "phase": 5,
+  "stage": "5C_one_time_final_test_evaluation",
+  "test_split_used": true,
+  "models_were_frozen_before_test": true,
+  "no_test_based_tuning_performed": true,
+  "test_rows": 23548,
+  "results": {
+    "Attack_label": {
+      "candidate_name": "binary_random_forest_without_tcp_len",
+      "model_name": "random_forest",
+      "test_rows": 23548,
+      "retained_features": 42,
+      "metrics": {
+        "accuracy": 0.9363852556480381,
+        "balanced_accuracy": 0.9304325567479643,
+        "macro_precision": 0.8598638338624458,
+        "macro_recall": 0.9304325567479643,
+        "macro_f1": 0.8895932087560325,
+        "weighted_f1": 0.9392178074755515,
+        "normal_recall": 0.9218106995884774,
+        "attack_recall": 0.9390544139074511
+      },
+      "prediction_seconds": 0.049567,
+      "test_records_per_second": 475073.18,
+      "classification_report": "outputs\\metrics\\phase5\\final_test\\Attack_label\\test_classification_report.csv",
+      "confusion_matrix": "outputs\\metrics\\phase5\\final_test\\Attack_label\\test_confusion_matrix.csv"
+    },
+    "Attack_type": {
+      "candidate_name": "multiclass_decision_tree_without_tcp_checksum",
+      "model_name": "decision_tree",
+      "test_rows": 23548,
+      "retained_features": 42,
+      "metrics": {
+        "accuracy": 0.8350603023611347,
+        "balanced_accuracy": 0.830294535133135,
+        "macro_precision": 0.8654684599690535,
+        "macro_recall": 0.830294535133135,
+        "macro_f1": 0.8268810743008745,
+        "weighted_f1": 0.8477443397785331
+      },
+      "prediction_seconds": 0.005109,
+      "test_records_per_second": 4608760.3,
+      "classification_report": "outputs\\metrics\\phase5\\final_test\\Attack_type\\test_classification_report.csv",
+      "confusion_matrix": "outputs\\metrics\\phase5\\final_test\\Attack_type\\test_confusion_matrix.csv"
+    }
+  },
+  "limitations": [
+    "Feature and model selection used the validation partition repeatedly; validation scores are not independent confirmation.",
+    "Earlier exploratory audits used the full dataset before splitting.",
+    "The split is record-level, not verified device/session-level.",
+    "The eventual test result will estimate performance on this dataset split, not prove generalization to unseen devices or environments."
+  ],
+  "interpretation_warning": "This is a final evaluation on the held-out random record split. Because earlier exploratory audits used the full dataset and no verified device/session split exists, results do not establish generalization to unseen devices, sessions, or real buildings. Do not tune or choose models using these test results."
+}

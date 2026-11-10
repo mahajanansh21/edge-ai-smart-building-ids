@@ -1,0 +1,8 @@
+{
+    "total_records": 157800,
+    "unique_complete_feature_groups": 156986,
+    "repeated_complete_groups": 7,
+    "rows_in_repeated_groups": 821,
+    "excess_duplicate_records": 814,
+    "mixed_label_duplicate_groups": 0
+}

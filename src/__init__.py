@@ -1,1 +1,1 @@
-"""Source package for the Edge AI Smart Building IDS project."""
+"""Edge AI smart-building intrusion detection project source package."""

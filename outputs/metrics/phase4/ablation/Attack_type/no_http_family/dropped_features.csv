@@ -1,0 +1,11 @@
+dropped_feature
+categorical__http.request.method_GET
+categorical__http.request.method_OPTIONS
+categorical__http.request.method_POST
+categorical__http.request.method_TRACE
+categorical__http.request.method___NO_VALUE__
+categorical__http.request.version_HTTP/1.0
+categorical__http.request.version_HTTP/1.1
+categorical__http.request.version___NO_VALUE__
+numeric__http.content_length
+numeric__http.response

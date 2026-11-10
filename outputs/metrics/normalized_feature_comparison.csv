@@ -1,0 +1,4 @@
+feature_set,feature_count,unique_combinations,binary_mixed_groups,binary_mixed_rows,multiclass_mixed_groups,multiclass_mixed_rows,binary_majority_consistency_percentage,multiclass_majority_consistency_percentage
+core_9_raw,9,817,151,117982,276,139222,90.229,50.322
+expanded_36_raw,36,151865,0,0,309,4012,100.0,98.902
+expanded_36_normalized,36,151606,151,4627,544,5439,99.835,97.916

@@ -1,0 +1,168 @@
+{
+    "dataset_shape": [
+        157800,
+        63
+    ],
+    "risk_groups": {
+        "timestamp_and_identity": [
+            "frame.time",
+            "ip.src_host",
+            "ip.dst_host",
+            "arp.dst.proto_ipv4",
+            "arp.src.proto_ipv4"
+        ],
+        "packet_identifiers": [
+            "tcp.ack_raw",
+            "tcp.ack",
+            "tcp.seq",
+            "tcp.checksum",
+            "udp.stream",
+            "icmp.checksum",
+            "icmp.seq_le"
+        ],
+        "raw_content": [
+            "tcp.payload",
+            "tcp.options",
+            "http.file_data",
+            "http.request.full_uri",
+            "http.request.uri.query",
+            "http.referer",
+            "mqtt.msg",
+            "mqtt.topic",
+            "dns.qry.name"
+        ],
+        "network_ports": [
+            "tcp.srcport",
+            "tcp.dstport",
+            "udp.port"
+        ]
+    },
+    "constant_features": [
+        "icmp.unused",
+        "http.tls_port",
+        "dns.qry.type",
+        "dns.retransmit_request_in",
+        "mqtt.msg_decoded_as",
+        "mbtcp.len",
+        "mbtcp.trans_id",
+        "mbtcp.unit_id"
+    ],
+    "identical_feature_pairs": [
+        {
+            "feature_1": "icmp.unused",
+            "feature_2": "http.tls_port"
+        },
+        {
+            "feature_1": "icmp.unused",
+            "feature_2": "dns.qry.type"
+        },
+        {
+            "feature_1": "icmp.unused",
+            "feature_2": "dns.retransmit_request_in"
+        },
+        {
+            "feature_1": "icmp.unused",
+            "feature_2": "mqtt.msg_decoded_as"
+        },
+        {
+            "feature_1": "icmp.unused",
+            "feature_2": "mbtcp.len"
+        },
+        {
+            "feature_1": "icmp.unused",
+            "feature_2": "mbtcp.trans_id"
+        },
+        {
+            "feature_1": "icmp.unused",
+            "feature_2": "mbtcp.unit_id"
+        },
+        {
+            "feature_1": "http.tls_port",
+            "feature_2": "dns.qry.type"
+        },
+        {
+            "feature_1": "http.tls_port",
+            "feature_2": "dns.retransmit_request_in"
+        },
+        {
+            "feature_1": "http.tls_port",
+            "feature_2": "mqtt.msg_decoded_as"
+        },
+        {
+            "feature_1": "http.tls_port",
+            "feature_2": "mbtcp.len"
+        },
+        {
+            "feature_1": "http.tls_port",
+            "feature_2": "mbtcp.trans_id"
+        },
+        {
+            "feature_1": "http.tls_port",
+            "feature_2": "mbtcp.unit_id"
+        },
+        {
+            "feature_1": "dns.qry.type",
+            "feature_2": "dns.retransmit_request_in"
+        },
+        {
+            "feature_1": "dns.qry.type",
+            "feature_2": "mqtt.msg_decoded_as"
+        },
+        {
+            "feature_1": "dns.qry.type",
+            "feature_2": "mbtcp.len"
+        },
+        {
+            "feature_1": "dns.qry.type",
+            "feature_2": "mbtcp.trans_id"
+        },
+        {
+            "feature_1": "dns.qry.type",
+            "feature_2": "mbtcp.unit_id"
+        },
+        {
+            "feature_1": "dns.retransmit_request_in",
+            "feature_2": "mqtt.msg_decoded_as"
+        },
+        {
+            "feature_1": "dns.retransmit_request_in",
+            "feature_2": "mbtcp.len"
+        },
+        {
+            "feature_1": "dns.retransmit_request_in",
+            "feature_2": "mbtcp.trans_id"
+        },
+        {
+            "feature_1": "dns.retransmit_request_in",
+            "feature_2": "mbtcp.unit_id"
+        },
+        {
+            "feature_1": "mqtt.msg_decoded_as",
+            "feature_2": "mbtcp.len"
+        },
+        {
+            "feature_1": "mqtt.msg_decoded_as",
+            "feature_2": "mbtcp.trans_id"
+        },
+        {
+            "feature_1": "mqtt.msg_decoded_as",
+            "feature_2": "mbtcp.unit_id"
+        },
+        {
+            "feature_1": "mqtt.proto_len",
+            "feature_2": "mqtt.ver"
+        },
+        {
+            "feature_1": "mbtcp.len",
+            "feature_2": "mbtcp.trans_id"
+        },
+        {
+            "feature_1": "mbtcp.len",
+            "feature_2": "mbtcp.unit_id"
+        },
+        {
+            "feature_1": "mbtcp.trans_id",
+            "feature_2": "mbtcp.unit_id"
+        }
+    ]
+}

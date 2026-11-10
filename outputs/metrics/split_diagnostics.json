@@ -1,0 +1,37 @@
+{
+    "dataset_rows": 157800,
+    "selected_feature_count": 9,
+    "selected_features": [
+        "arp.opcode",
+        "arp.hw.size",
+        "tcp.connection.fin",
+        "tcp.connection.rst",
+        "tcp.connection.syn",
+        "tcp.connection.synack",
+        "tcp.flags",
+        "tcp.flags.ack",
+        "tcp.len"
+    ],
+    "unique_feature_groups": 817,
+    "repeated_feature_groups": 564,
+    "rows_in_repeated_groups": 157547,
+    "excess_repeated_rows": 156983,
+    "mixed_attack_type_groups": 276,
+    "groups_per_attack_type": {
+        "DDoS_ICMP": 1,
+        "DDoS_UDP": 1,
+        "DDoS_TCP": 2,
+        "Fingerprinting": 5,
+        "Port_Scanning": 5,
+        "Password": 17,
+        "Uploading": 26,
+        "Ransomware": 32,
+        "XSS": 41,
+        "MITM": 46,
+        "Backdoor": 119,
+        "DDoS_HTTP": 126,
+        "SQL_injection": 162,
+        "Vulnerability_scanner": 311,
+        "Normal": 358
+    }
+}

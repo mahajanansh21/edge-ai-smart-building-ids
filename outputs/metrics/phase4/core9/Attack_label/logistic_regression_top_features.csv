@@ -1,0 +1,10 @@
+rank,feature,importance,method
+1,numeric__tcp.flags.ack,0.6602882742881775,mean_absolute_logistic_coefficient
+2,numeric__arp.opcode,0.33678099513053894,mean_absolute_logistic_coefficient
+3,numeric__arp.hw.size,0.19896963238716125,mean_absolute_logistic_coefficient
+4,numeric__tcp.connection.rst,0.16823174059391022,mean_absolute_logistic_coefficient
+5,numeric__tcp.connection.fin,0.12624190747737885,mean_absolute_logistic_coefficient
+6,numeric__tcp.connection.synack,0.08425992727279663,mean_absolute_logistic_coefficient
+7,numeric__tcp.flags,0.056333404034376144,mean_absolute_logistic_coefficient
+8,numeric__tcp.connection.syn,0.021221168339252472,mean_absolute_logistic_coefficient
+9,numeric__tcp.len,0.017576072365045547,mean_absolute_logistic_coefficient

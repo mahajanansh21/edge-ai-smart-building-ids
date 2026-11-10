@@ -1,3 +1,7 @@
 # Model artifacts
 
-Trained model and preprocessing artifacts will be written here after Phase 4/5. Binary artifacts are excluded from Git by default until we decide which compact artifact is appropriate for deployment.
+The frozen deployable model bundle is stored in `models/final/`.
+
+It contains the binary Random Forest, multiclass Decision Tree, each model's input specification, the shared preprocessing transformer and the Phase 5 freeze manifest.
+
+Other model experiments and intermediate artifacts are excluded from Git.

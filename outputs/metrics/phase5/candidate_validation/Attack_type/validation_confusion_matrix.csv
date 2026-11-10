@@ -1,0 +1,16 @@
+actual\predicted,Backdoor,DDoS_HTTP,DDoS_ICMP,DDoS_TCP,DDoS_UDP,Fingerprinting,MITM,Normal,Password,Port_Scanning,Ransomware,SQL_injection,Uploading,Vulnerability_scanner,XSS
+Backdoor,1382,56,0,0,0,7,0,0,0,39,25,0,21,0,0
+DDoS_HTTP,0,1520,0,0,0,0,0,0,0,0,0,43,1,14,6
+DDoS_ICMP,0,0,2114,0,0,0,0,0,0,0,0,0,0,0,0
+DDoS_TCP,0,0,0,1537,0,0,0,0,0,0,0,0,0,0,0
+DDoS_UDP,0,0,0,0,2174,0,0,0,0,0,0,0,0,0,0
+Fingerprinting,1,20,0,0,0,90,0,0,0,26,12,0,1,0,0
+MITM,0,0,0,0,0,0,60,0,0,0,0,0,0,0,0
+Normal,1,593,0,0,0,1,0,2848,0,2,6,187,0,1,6
+Password,0,434,0,0,0,0,0,0,901,1,2,152,0,0,8
+Port_Scanning,3,0,0,0,0,74,0,0,0,1354,61,0,18,0,0
+Ransomware,7,88,0,0,0,52,0,0,0,65,1388,0,39,0,0
+SQL_injection,0,400,0,0,0,0,0,0,1,1,4,1128,0,2,11
+Uploading,18,522,0,0,0,6,0,0,0,108,31,79,770,0,6
+Vulnerability_scanner,0,51,0,0,0,0,0,0,1,2,3,39,0,1408,8
+XSS,0,324,0,0,0,3,0,0,0,1,68,112,1,9,990

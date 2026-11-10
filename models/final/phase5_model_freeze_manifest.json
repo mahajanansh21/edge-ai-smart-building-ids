@@ -1,0 +1,50 @@
+{
+  "phase": 5,
+  "status": "frozen_before_test_evaluation",
+  "frozen_at_utc": "2026-11-02T07:09:42.544016+00:00",
+  "test_split_used": false,
+  "test_evaluation_authorized": true,
+  "preprocessor_path": "models\\final\\expanded36_normalized_preprocessor.joblib",
+  "preprocessor_feature_set": "expanded36_normalized",
+  "transformed_feature_count_before_target_specific_selection": 43,
+  "models": {
+    "Attack_label": {
+      "model_path": "models\\final\\binary_random_forest_without_tcp_len.joblib",
+      "input_spec_path": "models\\final\\binary_random_forest_without_tcp_len_input_spec.json",
+      "candidate_name": "binary_random_forest_without_tcp_len",
+      "model_name": "random_forest",
+      "validation_metrics": {
+        "accuracy": 0.9357057924239851,
+        "balanced_accuracy": 0.9303667644040675,
+        "macro_precision": 0.858501784983609,
+        "macro_recall": 0.9303667644040675,
+        "macro_f1": 0.8886488773084988,
+        "weighted_f1": 0.9386261000644156,
+        "normal_recall": 0.922633744855967,
+        "attack_recall": 0.938099783952168
+      }
+    },
+    "Attack_type": {
+      "model_path": "models\\final\\multiclass_decision_tree_without_tcp_checksum.joblib",
+      "input_spec_path": "models\\final\\multiclass_decision_tree_without_tcp_checksum_input_spec.json",
+      "candidate_name": "multiclass_decision_tree_without_tcp_checksum",
+      "model_name": "decision_tree",
+      "validation_metrics": {
+        "accuracy": 0.8350603023611347,
+        "balanced_accuracy": 0.8270728168081478,
+        "macro_precision": 0.8631873273858697,
+        "macro_recall": 0.8270728168081478,
+        "macro_f1": 0.8249236211532854,
+        "weighted_f1": 0.8480097532339443
+      }
+    }
+  },
+  "no_further_model_or_feature_tuning_after_test_evaluation": true,
+  "limitations": [
+    "Feature and model selection used the validation partition repeatedly; validation scores are not independent confirmation.",
+    "Earlier exploratory audits used the full dataset before splitting.",
+    "The split is record-level, not verified device/session-level.",
+    "The eventual test result will estimate performance on this dataset split, not prove generalization to unseen devices or environments."
+  ],
+  "evaluation_instruction": "Run the one-time test evaluation only after reviewing this manifest. Do not tune or select another model based on the test results."
+}

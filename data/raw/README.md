@@ -1,3 +1,11 @@
-# Raw dataset files
+# Raw dataset
 
-Place the extracted Edge-IIoTset CSV file(s) here. Keep the original downloaded filenames until the schema has been inspected. Raw data are excluded from Git by `.gitignore`.
+Place the original dataset CSV here:
+
+`ML-EdgeIIoT-dataset.csv`
+
+The raw dataset is intentionally excluded from Git. Obtain it from its original distributor and comply with its licence and citation requirements.
+
+Expected path:
+
+`data/raw/ML-EdgeIIoT-dataset.csv`
