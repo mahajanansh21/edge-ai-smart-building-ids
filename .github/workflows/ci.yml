@@ -1,0 +1,53 @@
+name: Edge AI IDS - Python CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Compile, test and validate models
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Compile Python files
+        run: |
+          python -m compileall -q app.py config.py src
+
+      - name: Run automated tests
+        run: |
+          python -m pytest -q
+
+      - name: Check dependency consistency
+        run: |
+          python -m pip check
+
+      - name: Test frozen model inference
+        run: |
+          python -m src.phase67_smoke_test
