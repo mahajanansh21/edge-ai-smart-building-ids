@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,9 +36,14 @@ from src.phase7_ops import (
     summarize_predictions,
 )
 
+from src.phase9_uploads import CSVUploadError, read_limited_csv
+
 ROOT = Path(__file__).resolve().parent
 OUTPUT_RUNS = ROOT / "outputs" / "phase7" / "runs"
 TRAINING_PROFILE_PATH = ROOT / "deployment" / "training_profile.json"
+logger = logging.getLogger(__name__)
+MAX_CSV_UPLOAD_MB = 10
+MAX_CSV_ROWS = 5000
 
 st.set_page_config(
     page_title="Edge AI Smart Building IDS",
@@ -174,8 +180,9 @@ def show_result_summary():
             st.success(f"Run reports saved to: {st.session_state.last_saved_run}")
         except FileExistsError:
             st.warning("This run was already saved. Use the downloaded CSV or create a new inference run before saving another bundle.")
-        except Exception as exc:
-            st.error(f"Could not save run reports: {exc}")
+        except Exception:
+            logger.exception("Could not save run reports.")
+            st.error("Could not save the run reports. Download the prediction CSV for a durable copy; hosted files may be temporary.")
     if st.session_state.last_saved_run:
         st.caption(f"Saved report folder: {st.session_state.last_saved_run}")
 
@@ -208,18 +215,19 @@ def run_single_or_batch(frame: pd.DataFrame, source: str, profile: dict):
             predictions, performance = predict_dataframe(frame, bundle)
         register_run(predictions, performance, source, diagnostics)
         st.success(f"Inference completed for {len(predictions):,} record(s).")
-    except Exception as exc:
-        st.error(f"Inference failed: {exc}")
-        st.exception(exc)
+    except Exception:
+        logger.exception("Inference failed for source=%s", source)
+        st.error("Inference could not be completed. Check the required 36 feature columns and input values, then try again. Technical details are recorded in the app logs.")
 
 
 initialize_state()
 try:
     bundle = get_bundle()
     bundle_error = None
-except Exception as exc:
+except Exception:
+    logger.exception("The frozen Phase 5 model bundle could not be loaded.")
     bundle = None
-    bundle_error = str(exc)
+    bundle_error = True
 
 with st.sidebar:
     st.title("🛡️ Edge AI IDS")
@@ -238,12 +246,16 @@ st.title("Edge AI-Based Intrusion Detection for Smart Buildings")
 st.caption("Phase 6–7 — Model inference, offline traffic replay, alerts and edge telemetry")
 
 if bundle_error:
-    st.error("The frozen Phase 5 model bundle could not be loaded.")
-    st.code(bundle_error)
-    st.info("Verify the six frozen files in models/final and Phase 3 feature metadata under data/processed/model_inputs.")
+    st.error("The frozen Phase 5 model bundle could not be loaded. The app maintainer should review the deployment logs.")
+    st.info("The hosted app needs all frozen model files and the two saved preprocessing metadata files in the repository.")
     st.stop()
 
-profile = get_training_profile(tuple(bundle.source_features))
+try:
+    profile = get_training_profile(tuple(bundle.source_features))
+except Exception:
+    logger.exception("The saved TRAIN-only feature profile could not be loaded.")
+    st.error("The feature profile could not be loaded. Please try again later or contact the app maintainer.")
+    st.stop()
 
 if page == "Overview":
     st.subheader("Security operations overview")
@@ -362,20 +374,34 @@ elif page == "Traffic Analyzer":
                 st.markdown("#### Submitted feature vector")
                 st.dataframe(one_row.T.rename(columns={0: "Input value"}), use_container_width=True)
                 run_single_or_batch(one_row, "Manual single record", profile)
-            except Exception as exc:
-                st.error(f"Could not create manual record: {exc}")
+            except Exception:
+                logger.exception("Could not create the manual feature record.")
+                st.error("Could not create the feature record. Check the entered values and try again.")
 
     elif mode == "Upload CSV":
-        uploaded = st.file_uploader("Upload traffic CSV (all 36 source feature columns required)", type=["csv"], key="traffic_csv_upload")
+        uploaded = st.file_uploader(
+            "Upload traffic CSV (all 36 source feature columns required)",
+            type=["csv"],
+            max_upload_size=MAX_CSV_UPLOAD_MB,
+            key="traffic_csv_upload",
+            help=f"Maximum file size: {MAX_CSV_UPLOAD_MB} MB. Maximum rows per analysis: {MAX_CSV_ROWS:,}.",
+        )
         if uploaded is not None:
             try:
-                frame = pd.read_csv(uploaded, low_memory=False)
-                st.caption(f"Uploaded {len(frame):,} records and {frame.shape[1]} columns. Maximum: 5,000 rows per run.")
+                frame = read_limited_csv(
+                    uploaded,
+                    max_rows=MAX_CSV_ROWS,
+                    max_bytes=MAX_CSV_UPLOAD_MB * 1024 * 1024,
+                )
+                st.caption(f"Uploaded {len(frame):,} records and {frame.shape[1]} columns.")
                 st.dataframe(frame.head(8), use_container_width=True, hide_index=True)
                 if st.button("Analyze uploaded traffic", type="primary", key="analyze_uploaded_csv"):
                     run_single_or_batch(frame, "Uploaded CSV", profile)
-            except Exception as exc:
-                st.error(f"Could not read uploaded CSV: {exc}")
+            except CSVUploadError as exc:
+                st.warning(str(exc))
+            except Exception:
+                logger.exception("Unexpected error while reading an uploaded CSV.")
+                st.error("Could not read this CSV. Check that it is a valid UTF-8 CSV file and try again. Technical details are recorded in the app logs.")
 
     else:
         st.caption("This option selects a known validation record. Its ground-truth labels are retained only as a separate reference for learning; they are not model inputs.")
@@ -393,8 +419,9 @@ elif page == "Traffic Analyzer":
                 st.dataframe(chosen[bundle.source_features].T.rename(columns={0: "Input value"}), use_container_width=True)
                 if st.button("Classify selected validation record", type="primary", key="classify_validation_record"):
                     run_single_or_batch(chosen, "Validation example", profile)
-        except Exception as exc:
-            st.error(f"Could not load validation example: {exc}")
+        except Exception:
+            logger.exception("Could not load a validation example.")
+            st.warning("Could not load a validation example. Check that the local validation split is available.")
 
     if st.session_state.last_source in {"Manual single record", "Uploaded CSV", "Validation example"}:
         show_result_summary()
@@ -437,9 +464,9 @@ elif page == "Live Simulation":
             register_run(results, performance, "Offline validation replay", diagnostics)
             st.success(f"Offline replay finished: {len(results):,} records across {int(performance['batches'])} batches.")
             progress.progress(1.0, text="Replay complete")
-        except Exception as exc:
-            st.error(f"Offline simulation failed: {exc}")
-            st.exception(exc)
+        except Exception:
+            logger.exception("Offline simulation failed.")
+            st.error("Offline simulation could not be completed. Check the validation data and review the app logs for technical details.")
 
     if st.session_state.last_source == "Offline validation replay":
         show_result_summary()
@@ -453,6 +480,7 @@ elif page == "Live Simulation":
 elif page == "Threat Alerts":
     st.subheader("Threat alert feed")
     st.warning("These are model-predicted attacks that require review. They are not confirmed security incidents and do not have calibrated severity levels.")
+    st.caption("Alert and run history is stored only in this Streamlit session. Download important results before leaving; session history is not a permanent incident database.")
     alerts = st.session_state.alert_history
     if alerts.empty:
         st.info("No alerts yet. Run a manual/CSV analysis or offline simulation first.")

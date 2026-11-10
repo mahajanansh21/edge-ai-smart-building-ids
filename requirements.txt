@@ -1,11 +1,11 @@
-# Deploy with Python 3.13 (select Python 3.13 in Streamlit Community Cloud).
+# Reproducible Python 3.13 environment tested for Phase 9.
 numpy==2.5.4
 pandas==3.1.0
 scikit-learn==1.9.1
 scipy==1.18.1
 joblib==1.6.0
 streamlit==1.66.1
-plotly>=5.24,<7.0
-matplotlib>=3.8,<4.0
-psutil>=5.9,<8.0
-pytest>=8.0,<10.0
+plotly==6.9.0
+matplotlib==3.11.2
+psutil==7.2.2
+pytest==9.2.0
