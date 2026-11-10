@@ -1,0 +1,62 @@
+{
+  "feature_set": "expanded36_normalized",
+  "source_feature_count": 36,
+  "source_features": [
+    "arp.opcode",
+    "arp.hw.size",
+    "icmp.checksum",
+    "icmp.seq_le",
+    "http.content_length",
+    "http.request.method",
+    "http.request.version",
+    "http.response",
+    "tcp.ack",
+    "tcp.ack_raw",
+    "tcp.checksum",
+    "tcp.connection.fin",
+    "tcp.connection.rst",
+    "tcp.connection.syn",
+    "tcp.connection.synack",
+    "tcp.flags",
+    "tcp.flags.ack",
+    "tcp.len",
+    "tcp.seq",
+    "udp.stream",
+    "udp.time_delta",
+    "dns.qry.name",
+    "dns.qry.name.len",
+    "dns.qry.qu",
+    "dns.retransmission",
+    "dns.retransmit_request",
+    "mqtt.conack.flags",
+    "mqtt.conflag.cleansess",
+    "mqtt.conflags",
+    "mqtt.hdrflags",
+    "mqtt.len",
+    "mqtt.msgtype",
+    "mqtt.protoname",
+    "mqtt.topic",
+    "mqtt.topic_len",
+    "mqtt.ver"
+  ],
+  "transformed_feature_count": 43,
+  "transformed_feature_names_file": "feature_names.json",
+  "fit_partition": "train only",
+  "validation_used_for_fit": false,
+  "test_used_for_fit": false,
+  "train_shape": [
+    109890,
+    43
+  ],
+  "validation_shape": [
+    23548,
+    43
+  ],
+  "test_shape": [
+    23548,
+    43
+  ],
+  "matrix_format": "scipy CSR sparse NPZ",
+  "preprocessor_artifact": "models\\preprocessors\\expanded36_normalized_preprocessor.joblib",
+  "experimental_warning": "expanded36_normalized is a research comparator. Some protocol and packet metadata may reflect dataset-specific collection patterns; compare against core9 in Phase 4."
+}

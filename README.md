@@ -99,7 +99,7 @@ See `outputs/metrics/phase5/final_test/` for classification reports and confusio
 Use Python 3.13.3 or another compatible Python environment.
 
 ```powershell
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/mahajanansh21/edge-ai-smart-building-ids.git
 cd edge-ai-smart-building-ids
 
 py -3.13 -m venv .venv
@@ -191,3 +191,9 @@ This is an educational defensive prototype. Model predictions are alerts requiri
 - `docs/LIMITATIONS.md`
 - `docs/UNIVERSITY_DEMO_SCRIPT.md`
 - `docs/PHASE6_7_GUIDE.md`
+
+## Streamlit Community Cloud demo
+
+The public dashboard supports frozen-model inference from manual feature entry or an uploaded CSV, saved Phase 5 model evaluation, session threat alerts, and runtime telemetry. The raw dataset and prepared train/validation splits are intentionally excluded from Git. Therefore, Dataset Explorer and validation-split replay are local-only features; they are not enabled in the hosted demo.
+
+For deployment, select Python 3.13 in Streamlit Community Cloud Advanced settings, use `app.py` as the app entrypoint, and deploy the `main` branch. The small `deployment/training_profile.json` contains TRAIN-only aggregate feature defaults/ranges for the manual-input form; it does not contain raw traffic records.

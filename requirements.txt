@@ -1,10 +1,11 @@
-# Python 3.11 recommended for this project.
-numpy>=1.26,<3.0
-pandas>=2.2,<4.0
-scikit-learn>=1.5,<2.0
-streamlit>=1.40,<2.0
+# Deploy with Python 3.13 (select Python 3.13 in Streamlit Community Cloud).
+numpy==2.5.4
+pandas==3.1.0
+scikit-learn==1.9.1
+scipy==1.18.1
+joblib==1.6.0
+streamlit==1.66.1
 plotly>=5.24,<7.0
 matplotlib>=3.8,<4.0
-joblib>=1.4,<2.0
 psutil>=5.9,<8.0
 pytest>=8.0,<10.0

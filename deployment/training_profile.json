@@ -1,0 +1,271 @@
+{
+  "numeric": {
+    "arp.opcode": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 1.0,
+      "minimum": 0.0,
+      "maximum": 2.0
+    },
+    "arp.hw.size": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 6.0,
+      "minimum": 0.0,
+      "maximum": 6.0
+    },
+    "icmp.checksum": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 58798.33,
+      "minimum": 0.0,
+      "maximum": 65532.0
+    },
+    "icmp.seq_le": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 58478.22,
+      "minimum": 0.0,
+      "maximum": 65524.0
+    },
+    "http.content_length": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 277.0,
+      "minimum": 0.0,
+      "maximum": 83655.0
+    },
+    "http.response": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 1.0,
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "tcp.ack": {
+      "default": 1.0,
+      "q01": 0.0,
+      "q99": 1831899190.3500001,
+      "minimum": 0.0,
+      "maximum": 2147087720.0
+    },
+    "tcp.ack_raw": {
+      "default": 1178397831.5,
+      "q01": 0.0,
+      "q99": 4204930334.75,
+      "minimum": 0.0,
+      "maximum": 4294947151.0
+    },
+    "tcp.checksum": {
+      "default": 24047.5,
+      "q01": 0.0,
+      "q99": 64730.0,
+      "minimum": 0.0,
+      "maximum": 65535.0
+    },
+    "tcp.connection.fin": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 1.0,
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "tcp.connection.rst": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 1.0,
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "tcp.connection.syn": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 1.0,
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "tcp.connection.synack": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 1.0,
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "tcp.flags": {
+      "default": 16.0,
+      "q01": 0.0,
+      "q99": 24.0,
+      "minimum": 0.0,
+      "maximum": 25.0
+    },
+    "tcp.flags.ack": {
+      "default": 1.0,
+      "q01": 0.0,
+      "q99": 1.0,
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "tcp.len": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 1440.0,
+      "minimum": 0.0,
+      "maximum": 65228.0
+    },
+    "tcp.seq": {
+      "default": 1.0,
+      "q01": 0.0,
+      "q99": 91092694.27000001,
+      "minimum": 0.0,
+      "maximum": 207964705.0
+    },
+    "udp.stream": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 2549545.1100000003,
+      "minimum": 0.0,
+      "maximum": 2898725.0
+    },
+    "udp.time_delta": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 0.0,
+      "minimum": 0.0,
+      "maximum": 507.0
+    },
+    "dns.qry.name": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 1.0,
+      "minimum": 0.0,
+      "maximum": 2896968.0
+    },
+    "dns.qry.name.len": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 0.0,
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "dns.qry.qu": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 0.0,
+      "minimum": 0.0,
+      "maximum": 1028.0
+    },
+    "dns.retransmission": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 0.0,
+      "minimum": 0.0,
+      "maximum": 28.0
+    },
+    "dns.retransmit_request": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 0.0,
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "mqtt.conack.flags": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 0.0,
+      "minimum": 0.0,
+      "maximum": 0.0
+    },
+    "mqtt.conflag.cleansess": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 0.0,
+      "minimum": 0.0,
+      "maximum": 1.0
+    },
+    "mqtt.conflags": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 0.0,
+      "minimum": 0.0,
+      "maximum": 2.0
+    },
+    "mqtt.hdrflags": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 48.0,
+      "minimum": 0.0,
+      "maximum": 224.0
+    },
+    "mqtt.len": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 12.0,
+      "minimum": 0.0,
+      "maximum": 39.0
+    },
+    "mqtt.msgtype": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 3.0,
+      "minimum": 0.0,
+      "maximum": 14.0
+    },
+    "mqtt.topic_len": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 0.0,
+      "minimum": 0.0,
+      "maximum": 24.0
+    },
+    "mqtt.ver": {
+      "default": 0.0,
+      "q01": 0.0,
+      "q99": 0.0,
+      "minimum": 0.0,
+      "maximum": 4.0
+    }
+  },
+  "categorical": {
+    "http.request.method": {
+      "default": "0.0",
+      "known_values": [
+        "0.0",
+        "0",
+        "GET",
+        "TRACE",
+        "POST",
+        "OPTIONS"
+      ]
+    },
+    "http.request.version": {
+      "default": "0.0",
+      "known_values": [
+        "0.0",
+        "0",
+        "HTTP/1.1",
+        "HTTP/1.0",
+        "-a HTTP/1.1",
+        "Src=javascript:alert('Vulnerable')><Img Src=\\\" HTTP/1.1",
+        "/etc/passwd|?data=Download HTTP/1.1",
+        "By Dr HTTP/1.1"
+      ]
+    },
+    "mqtt.protoname": {
+      "default": "0.0",
+      "known_values": [
+        "0.0",
+        "0",
+        "MQTT"
+      ]
+    },
+    "mqtt.topic": {
+      "default": "0.0",
+      "known_values": [
+        "0.0",
+        "0",
+        "Temperature_and_Humidity"
+      ]
+    }
+  },
+  "source": "TRAIN-only aggregate feature profile; generated locally for deployment"
+}

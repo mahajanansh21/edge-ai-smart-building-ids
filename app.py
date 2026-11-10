@@ -15,6 +15,7 @@ import streamlit as st
 from src.edge_inference import (
     RAW_DATASET,
     TRAIN_SPLIT,
+    VALIDATION_SPLIT,
     load_model_bundle,
     load_test_confusion_matrix,
     load_test_report,
@@ -36,6 +37,7 @@ from src.phase7_ops import (
 
 ROOT = Path(__file__).resolve().parent
 OUTPUT_RUNS = ROOT / "outputs" / "phase7" / "runs"
+TRAINING_PROFILE_PATH = ROOT / "deployment" / "training_profile.json"
 
 st.set_page_config(
     page_title="Edge AI Smart Building IDS",
@@ -67,7 +69,7 @@ def get_validation():
 
 @st.cache_resource(show_spinner="Building manual-input defaults from the training split...")
 def get_training_profile(source_features: tuple[str, ...]):
-    return load_training_profile(TRAIN_SPLIT, list(source_features))
+    return load_training_profile(TRAIN_SPLIT, list(source_features), TRAINING_PROFILE_PATH)
 
 
 def initialize_state():
@@ -230,7 +232,7 @@ with st.sidebar:
         ],
     )
     st.divider()
-    st.caption("Frozen CPU models · Manual/CSV inference · Offline validation replay")
+    st.caption("Frozen CPU models · Manual/CSV inference · Local offline validation replay")
 
 st.title("Edge AI-Based Intrusion Detection for Smart Buildings")
 st.caption("Phase 6–7 — Model inference, offline traffic replay, alerts and edge telemetry")
@@ -268,13 +270,13 @@ if page == "Overview":
     if latest is not None:
         show_result_summary()
     else:
-        st.info("Start with Traffic Analyzer for a manual record or CSV, or Live Simulation for a multi-record offline replay.")
+        st.info("Start with Traffic Analyzer for a manual record or CSV upload. Offline validation replay is available in the local setup when the validation split is present.")
     st.warning("Final test scores are the recorded Phase 5 results on a random record-level split. They do not establish performance on unseen buildings or devices.")
 
 elif page == "Dataset Explorer":
     st.subheader("Edge-IIoTset dataset explorer")
     if not RAW_DATASET.is_file():
-        st.error(f"Dataset file not found: {RAW_DATASET}")
+        st.info("Dataset Explorer is available in the local setup only. The raw dataset is intentionally not included in this public repository.")
     else:
         with st.spinner("Reading full-dataset label counts (only two label columns)..."):
             binary_counts, type_counts, total_rows = get_full_distribution()
@@ -323,8 +325,11 @@ elif page == "Model Evaluation":
 
 elif page == "Traffic Analyzer":
     st.subheader("Traffic Analyzer — analyze one new record or a CSV")
-    st.write("Choose manual entry for a new feature vector, upload a CSV with all 36 source features, or select a labelled validation example for a teaching demonstration.")
-    mode = st.radio("Input method", ["Manual single record", "Upload CSV", "Choose validation example"], horizontal=True)
+    st.write("Enter a new feature vector manually or upload a CSV containing all 36 source features.")
+    input_methods = ["Manual single record", "Upload CSV"]
+    if VALIDATION_SPLIT.is_file():
+        input_methods.append("Choose validation example")
+    mode = st.radio("Input method", input_methods, horizontal=True)
 
     if mode == "Manual single record":
         st.info("The form starts with per-feature median/mode defaults calculated from the training split. Edit the values to create a new input vector. This is a feature-vector experiment, not a captured packet or a verified synthetic network flow.")
@@ -396,6 +401,9 @@ elif page == "Traffic Analyzer":
 
 elif page == "Live Simulation":
     st.subheader("Offline IoT traffic replay")
+    if not VALIDATION_SPLIT.is_file():
+        st.info("Offline validation replay is available in the local setup only because the validation split is intentionally excluded from the public repository. Manual and CSV inference remain available online.")
+        st.stop()
     st.warning("This replays rows from the validation split through frozen models. It does not capture packets, connect to a live network, or perform active scanning.")
     st.markdown("#### Configure replay")
     a, b, c = st.columns(3)

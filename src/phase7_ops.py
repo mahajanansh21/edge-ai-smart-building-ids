@@ -24,8 +24,32 @@ CATEGORICAL_SOURCE_FEATURES = {
 }
 
 
-def load_training_profile(train_path: Path, source_features: list[str]) -> dict[str, Any]:
-    """Build manual-input defaults and simple univariate checks from TRAIN only."""
+def load_training_profile(
+    train_path: Path,
+    source_features: list[str],
+    profile_path: Path | None = None,
+) -> dict[str, Any]:
+    """Load a saved TRAIN-only profile, or calculate it from the local TRAIN split."""
+    if profile_path is not None and profile_path.is_file():
+        with profile_path.open("r", encoding="utf-8") as handle:
+            profile = json.load(handle)
+        if not isinstance(profile, dict):
+            raise ValueError("Saved training profile must contain a JSON object.")
+        numeric = profile.get("numeric")
+        categorical = profile.get("categorical")
+        if not isinstance(numeric, dict) or not isinstance(categorical, dict):
+            raise ValueError("Saved training profile must contain numeric and categorical objects.")
+        missing = [
+            feature for feature in source_features
+            if (
+                feature in CATEGORICAL_SOURCE_FEATURES and feature not in categorical
+            ) or (
+                feature not in CATEGORICAL_SOURCE_FEATURES and feature not in numeric
+            )
+        ]
+        if missing:
+            raise ValueError("Saved training profile is missing feature(s): " + ", ".join(missing))
+        return profile
     if not train_path.is_file():
         raise FileNotFoundError(f"Training split not found: {train_path}")
     frame = pd.read_csv(train_path, usecols=source_features, low_memory=False)
