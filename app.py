@@ -37,6 +37,12 @@ from src.phase7_ops import (
 )
 
 from src.phase9_uploads import CSVUploadError, read_limited_csv
+from src.phase9_ui import (
+    apply_branding,
+    render_input_quick_guide,
+    render_page_banner,
+    render_pipeline_diagram,
+)
 
 ROOT = Path(__file__).resolve().parent
 OUTPUT_RUNS = ROOT / "outputs" / "phase7" / "runs"
@@ -52,6 +58,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+apply_branding()
 
 @st.cache_resource(show_spinner="Loading frozen Phase 5 models...")
 def get_bundle():
@@ -242,8 +249,7 @@ with st.sidebar:
     st.divider()
     st.caption("Frozen CPU models · Manual/CSV inference · Local offline validation replay")
 
-st.title("Edge AI-Based Intrusion Detection for Smart Buildings")
-st.caption("Phase 6–7 — Model inference, offline traffic replay, alerts and edge telemetry")
+render_page_banner(page, model_loaded=bundle is not None)
 
 if bundle_error:
     st.error("The frozen Phase 5 model bundle could not be loaded. The app maintainer should review the deployment logs.")
@@ -260,6 +266,7 @@ except Exception:
 if page == "Overview":
     st.subheader("Security operations overview")
     st.write("The application loads the frozen Phase 5 models. It does not train, modify, or select models.")
+    render_pipeline_diagram()
     c1, c2, c3, c4 = st.columns(4)
     c1.metric("Binary test accuracy", "93.64%")
     c2.metric("Binary test Macro-F1", "88.96%")
@@ -338,6 +345,11 @@ elif page == "Model Evaluation":
 elif page == "Traffic Analyzer":
     st.subheader("Traffic Analyzer — analyze one new record or a CSV")
     st.write("Enter a new feature vector manually or upload a CSV containing all 36 source features.")
+    render_input_quick_guide(
+        source_feature_count=len(bundle.source_features),
+        max_upload_mb=MAX_CSV_UPLOAD_MB,
+        max_rows=MAX_CSV_ROWS,
+    )
     input_methods = ["Manual single record", "Upload CSV"]
     if VALIDATION_SPLIT.is_file():
         input_methods.append("Choose validation example")
@@ -532,6 +544,8 @@ elif page == "Edge Performance":
 
 elif page == "About":
     st.subheader("Project information")
+    st.markdown("#### End-to-end detection architecture")
+    render_pipeline_diagram()
     st.markdown(
         """
         **Project:** Edge AI-Based Intrusion Detection for Smart Buildings  
