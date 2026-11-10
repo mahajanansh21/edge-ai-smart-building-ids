@@ -1,6 +1,8 @@
 """Load final artifacts and execute one training-profile-based manual vector."""
 from __future__ import annotations
 
+from pathlib import Path
+
 from src.edge_inference import TRAIN_SPLIT, load_model_bundle, predict_dataframe
 from src.phase7_ops import build_manual_record, load_training_profile
 
@@ -9,7 +11,12 @@ def main() -> int:
     print("PHASE 6/7 MODEL INFERENCE SMOKE TEST")
     print("Loading frozen Phase 5 artifacts...")
     bundle = load_model_bundle()
-    profile = load_training_profile(TRAIN_SPLIT, bundle.source_features)
+    profile_path = Path(__file__).resolve().parents[1] / "deployment" / "training_profile.json"
+    profile = load_training_profile(
+        TRAIN_SPLIT,
+        bundle.source_features,
+        profile_path=profile_path,
+    )
 
     values: dict[str, object] = {}
     for feature in bundle.source_features:
